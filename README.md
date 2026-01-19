@@ -1,6 +1,12 @@
 # Brewline
 
-Order-ahead coffee and loyalty app for independent cafes.
+A Vivacity Digital Expo app with standard navigation, theming, and UI scaffolding.
+
+## Overview
+
+- App slug: `brewline`
+- iOS bundle ID: `com.vivacity.brewline`
+- Android package: `com.vivacity.brewline`
 
 ## Quick start
 
@@ -12,6 +18,13 @@ npm run ios
 ## Scripts
 
 - `npm run ios` - run on iOS simulator
+- `npm run ios:simulator` - iOS with cache clear
 - `npm run android` - run on Android emulator
 - `npm run web` - run on web
-- `npm run ios:simulator` - iOS with cache clear
+
+## App Store prep (EAS)
+
+```bash
+eas build -p ios --profile production
+eas submit -p ios --profile production
+```
