@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { setCurrentStore, toggleFavorite } from '../store/slices/storeSlice';
+import { clearCart, setCartStore } from '../store/slices/cartSlice';
 
 export default function StorePickerScreen() {
   const dispatch = useDispatch();
@@ -39,6 +40,8 @@ export default function StorePickerScreen() {
 
   const handleConfirmSwitch = () => {
     if (pendingStoreId) {
+      dispatch(clearCart());
+      dispatch(setCartStore(pendingStoreId));
       dispatch(setCurrentStore(pendingStoreId));
     }
     setPendingStoreId(null);

@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { setCurrentStore } from '../store/slices/storeSlice';
+import { clearCart, setCartStore } from '../store/slices/cartSlice';
 import { RootStackParamList } from '../navigation/types';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -55,7 +56,12 @@ export default function HomeScreen() {
               <View style={styles.actionRow}>
                 <Button
                   mode="contained"
-                  onPress={() => dispatch(setCurrentStore(smartSwitchStore.id))}
+                  onPress={() => {
+                    dispatch(clearCart());
+                    dispatch(setCartStore(smartSwitchStore.id));
+                    dispatch(setCurrentStore(smartSwitchStore.id));
+                    setHideSuggestion(true);
+                  }}
                 >
                   Switch now
                 </Button>

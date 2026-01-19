@@ -1,8 +1,15 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Card, Text, Button, Chip, ProgressBar } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { redeemReward } from '../store/slices/loyaltySlice';
 
 export default function LoyaltyScreen() {
+  const dispatch = useDispatch();
+  const { points, tier, nextRewardAt } = useSelector((state: RootState) => state.loyalty);
+  const progress = Math.min(points / nextRewardAt, 1);
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
@@ -16,11 +23,11 @@ export default function LoyaltyScreen() {
         <Card style={styles.card}>
           <Card.Content>
             <Text variant="titleMedium">Current tier</Text>
-            <Chip style={styles.chip}>Gold</Chip>
+            <Chip style={styles.chip}>{tier}</Chip>
             <Text variant="bodySmall" style={styles.mutedText}>
-              120 points • 2 drinks from next reward
+              {points} points • {Math.max(nextRewardAt - points, 0)} to next reward
             </Text>
-            <ProgressBar progress={0.7} color="#5C3B24" />
+            <ProgressBar progress={progress} color="#5C3B24" />
           </Card.Content>
         </Card>
 
@@ -30,7 +37,12 @@ export default function LoyaltyScreen() {
             <Text variant="bodySmall" style={styles.mutedText}>
               Redeem a free coffee or 20% off food.
             </Text>
-            <Button mode="contained" style={styles.button}>
+            <Button
+              mode="contained"
+              style={styles.button}
+              onPress={() => dispatch(redeemReward(150))}
+              disabled={points < 150}
+            >
               Redeem reward
             </Button>
           </Card.Content>

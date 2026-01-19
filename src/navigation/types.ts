@@ -5,6 +5,8 @@ export type RootStackParamList = {
   ItemDetails: { id: string; name: string };
   Notifications: undefined;
   StorePicker: undefined;
+  PosQueue: undefined;
+  AdminDashboard: undefined;
 };
 
 export type BottomTabParamList = {

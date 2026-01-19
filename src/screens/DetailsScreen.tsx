@@ -2,6 +2,9 @@ import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { Card, Text, Chip, Button } from 'react-native-paper';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { addItem } from '../store/slices/cartSlice';
 import { RootStackParamList } from '../navigation/types';
 
 type RouteProps = RouteProp<RootStackParamList, 'ItemDetails'>;
@@ -13,6 +16,9 @@ const extras = ['Extra shot', 'Vanilla', 'Caramel'];
 export default function DetailsScreen() {
   const route = useRoute<RouteProps>();
   const { name } = route.params;
+  const dispatch = useDispatch();
+  const currentStoreId = useSelector((state: RootState) => state.store.currentStoreId);
+  const basePrice = 4.8;
 
   return (
     <ScrollView style={styles.container}>
@@ -63,8 +69,22 @@ export default function DetailsScreen() {
           </Card.Content>
         </Card>
 
-        <Button mode="contained" style={styles.ctaButton}>
-          Add to order
+        <Button
+          mode="contained"
+          style={styles.ctaButton}
+          onPress={() =>
+            dispatch(
+              addItem({
+                storeId: currentStoreId,
+                id: route.params.id,
+                name,
+                price: basePrice,
+                quantity: 1,
+              })
+            )
+          }
+        >
+          Add to order • ${basePrice.toFixed(2)}
         </Button>
       </View>
     </ScrollView>

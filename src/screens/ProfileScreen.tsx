@@ -1,8 +1,15 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Card, Text, Button, Chip, List } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/types';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export default function ProfileScreen() {
+  const navigation = useNavigation<NavigationProp>();
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
@@ -36,6 +43,20 @@ export default function ProfileScreen() {
         <Button mode="contained" icon="bell">
           Notification settings
         </Button>
+        <Button
+          mode="outlined"
+          style={styles.button}
+          onPress={() => navigation.navigate('PosQueue')}
+        >
+          Staff POS queue
+        </Button>
+        <Button
+          mode="outlined"
+          style={styles.button}
+          onPress={() => navigation.navigate('AdminDashboard')}
+        >
+          Admin dashboard
+        </Button>
       </View>
     </ScrollView>
   );
@@ -68,5 +89,8 @@ const styles = StyleSheet.create({
   chip: {
     marginRight: 8,
     marginBottom: 8,
+  },
+  button: {
+    marginTop: 12,
   },
 });

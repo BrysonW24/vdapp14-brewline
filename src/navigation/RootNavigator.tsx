@@ -6,6 +6,8 @@ import BottomTabNavigator from './BottomTabNavigator';
 import ItemDetailsScreen from '../screens/DetailsScreen';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import StorePickerScreen from '../screens/StorePickerScreen';
+import PosQueueScreen from '../screens/PosQueueScreen';
+import AdminDashboardScreen from '../screens/AdminDashboardScreen';
 import { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -39,6 +41,24 @@ export default function RootNavigator() {
           options={{
             headerShown: true,
             title: 'Choose a store',
+            headerBackTitle: 'Back',
+          }}
+        />
+        <Stack.Screen
+          name="PosQueue"
+          component={PosQueueScreen}
+          options={{
+            headerShown: true,
+            title: 'POS Queue',
+            headerBackTitle: 'Back',
+          }}
+        />
+        <Stack.Screen
+          name="AdminDashboard"
+          component={AdminDashboardScreen}
+          options={{
+            headerShown: true,
+            title: 'Admin Dashboard',
             headerBackTitle: 'Back',
           }}
         />
